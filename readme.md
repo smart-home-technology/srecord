@@ -1,6 +1,10 @@
 Motorola SRecord file helper
 
+
+Usage
+----------
     
+
 	C:\path\srecord>php bin/srecord.php
     Usage: bin/srecord.php filename.s19
     Prints header record, if available, and total data size of srecord file.
@@ -17,7 +21,20 @@ Motorola SRecord file helper
     
 
 
-License MIT
+Installation
+---------
+No special installation process needed.
+
+Available through composer/packagist package
+
+    composer require smart-home-technology/srecord
+
+https://packagist.org/packages/smart-home-technology/srecord
+
+
+License: MIT
+-----------
+
 
 Copyright (c) 2015 Smart Home Technology GmbH
 
