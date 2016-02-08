@@ -1,10 +1,18 @@
 #!/usr/bin/php
 <?php
+/**
+ * @license MIT
+ * @license http://opensource.org/licenses/MIT MIT
+ * @copyright 2015 Smart Home Technology GmbH, smart-home-technology.ch
+ * @author An adorable space cat
+ */
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'autoload.php';
 
-if ($argc == 1){
-	echo "Usage: {$argv[0]} filename.s19\n";
+if ($argc != 2){
+	echo "Usage: {$argv[0]} filename.s19\r\n";
+	echo "Prints header record, if available, and total data size of srecord file.\r\n";
+	echo "S19, S28, S37 file format is supported (honestly, it's the same)\r\n";
 	return;
 }
 
@@ -15,20 +23,17 @@ if (!file_exists($fname)){
 	return 1;
 }
 
+echo "\r\nSRECORD {$fname}\r\n";
 
 $recordFile = new SmartHomeTechnology\SRecord\SRecordFile($fname);
 
-// $options = getopt();
-
-foreach($recordFile->getRecords() as $r){
-	echo "{$r}\n";
+$header = $recordFile->getHeaderRecord();
+if ($header !== NULL){
+	echo "Header : \"{$header->data}\"\r\n";
+} else {
+	echo "Header : none\r\n";
 }
 
-echo "Total data size: ".$recordFile->getDataSize()."\n";
+echo "Total data size: " . $recordFile->getDataSize() . "\r\n";
 
-// foreach($fdata as $line){
-// 	$srec = new SRecord($line);
-// 	echo "{$srec}\n";
-// }
-
-// var_dump($b);
+echo "\r\nHave a spacevangerous day! purr\r\n";
