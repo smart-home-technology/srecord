@@ -74,13 +74,21 @@ class SRecordFile {
 	}
 	
 	public function getDataRecords(){
-		return array_filter($records,function($srec){
-			return $srec->isData();
+		return array_filter($this->records,function(SRecord $record){
+			return $record->isData();
 		});
 	}
 	
 	public function getDataSize(){
-		return array_sum(array_map('count',$this->records));
+		return array_reduce($this->getDataRecords(), function ($carry, SRecord $record){			
+			return $carry + count($record);
+		}, 0);
+	}
+	
+	public function getData(){
+		return array_reduce($this->getDataRecords(), function($carry, SRecord $record) {
+			return $carry .= $record->getData();
+		}, "");
 	}
 
 	public function getCountRecord(){
@@ -97,5 +105,13 @@ class SRecordFile {
 			return $this->records[$i];
 		}
 		return NULL;
+	}
+	
+	public function getAddressRanges(){
+		$ranges = array_reduce($this->getDataRecords(), function($carry, SRecord $record) {
+			return $carry[] = $record->getAddressRange();
+		}, []);
+		
+		return $ranges;
 	}
 }

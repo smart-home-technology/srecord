@@ -62,7 +62,7 @@ class SRecord implements \Countable {
 		}
 		
 		$srec->type = intval($line[1]);
-		$srec->byteCount = hexdec(substr($line,self::OFFSET_BYTECOUNT,self::OFFSET_ADDRESS - self::OFFSET_BYTECOUNT));
+		$srec->byteCount = hexdec(substr($line,self::OFFSET_BYTECOUNT, self::OFFSET_ADDRESS - self::OFFSET_BYTECOUNT));
 		$srec->address = hexdec(substr($line,self::OFFSET_ADDRESS, self::$LENGTH_ADDRESS[$srec->type]));
 		
 		$offset_data = self::OFFSET_ADDRESS + self::$LENGTH_ADDRESS[$srec->type];
@@ -96,18 +96,6 @@ class SRecord implements \Countable {
 		}
 	}
 	
-	public function count(){
-		switch($this->type){
-				
-			case self::TYPE_DATA_16BIT:
-			case self::TYPE_DATA_24BIT:
-			case self::TYPE_DATA_32BIT:
-				return $this->byteCount;
-				
-			default:
-				return 0;
-		}
-	}
 	
 	public function isHeader(){
 		return $this->type == self::TYPE_HEADER;
@@ -123,5 +111,31 @@ class SRecord implements \Countable {
 	
 	public function isStartAddress(){
 		return ($this->type == self::TYPE_START_ADDR_16BIT or $this->type == self::TYPE_START_ADDR_24BIT or $this->type == self::TYPE_START_ADDR_32BIT);
+	}
+	
+	public function getAddressRange(){
+		$range = [$this->address, $this->address + $this->getDataLength()];
+		return $range;
+	}
+	
+	public function count(){
+		return $this->getDataLength();
+	}
+	
+	public function getDataLength(){
+		switch($this->type){
+				
+			case self::TYPE_DATA_16BIT:
+			case self::TYPE_DATA_24BIT:
+			case self::TYPE_DATA_32BIT:
+				return $this->byteCount - self::$LENGTH_ADDRESS[$this->type]/2 - 1;
+				
+			default:
+				return 0;
+		}
+	}
+	
+	public function getData(){
+		return $this->data;
 	}
 }
