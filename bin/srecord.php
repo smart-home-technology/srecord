@@ -3,7 +3,6 @@
 /**
  * @license MIT
  * @license http://opensource.org/licenses/MIT MIT
- * @copyright 2015 Smart Home Technology GmbH, smart-home-technology.ch
  * @author An adorable space cat
  */
 
@@ -25,7 +24,7 @@ if (!file_exists($fname)){
 
 echo "\r\nSRECORD {$fname}\r\n";
 
-$recordFile = new SmartHomeTechnology\SRecord\SRecordFile($fname);
+$recordFile = new tschiemer\SRecord\SRecordFile($fname);
 
 $header = $recordFile->getHeaderRecord();
 if ($header !== NULL){

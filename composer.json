@@ -1,8 +1,8 @@
 {
-  "name": "smart-home-technology/srecord",
+  "name": "tschiemer/srecord",
   "description": "Motorola SRecord file helper",
   "license": "MIT",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "keywords": ["srecord"],
   "require": {
     "php": ">=5.3.0"
@@ -12,7 +12,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "SmartHomeTechnology\\SRecord\\" : "src/"
+      "tschiemer\\SRecord\\" : "src/"
     }
   }
 }

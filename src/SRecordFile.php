@@ -2,10 +2,9 @@
 /**
  * @license MIT
  * @license http://opensource.org/licenses/MIT MIT
- * @copyright 2015 Smart Home Technology GmbH, smart-home-technology.ch
  * @author An innocent space cat
  */
-namespace SmartHomeTechnology\SRecord;
+namespace tschiemer\SRecord;
 
 /**
  * SRecordFile class
